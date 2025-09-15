@@ -1,0 +1,20 @@
+=== Introduction ===
+Black holes are regions of space-time where gravity is so intense that nothing, not even light, can escape. 
+They are one of the most fascinating predictions of general relativity.
+
+=== Formation ===
+Black holes are usually formed when massive stars exhaust their nuclear fuel and collapse under their own gravity.
+The collapse compresses matter into a singularity, a point of infinite density, surrounded by an event horizon.
+
+=== Properties ===
+- Event Horizon: the boundary beyond which nothing can return.
+- Singularity: the central point where density and curvature become infinite.
+- Hawking Radiation: theoretical radiation predicted by Stephen Hawking, suggesting that black holes can slowly evaporate.
+
+=== Types of Black Holes ===
+- Stellar black holes: formed by collapsing stars, with masses a few times greater than the Sun.
+- Supermassive black holes: located at the centers of galaxies, with millions or billions of solar masses.
+- Intermediate black holes: between stellar and supermassive in size, less commonly observed.
+
+=== Conclusion ===
+Black holes remain an active field of research, connecting astrophysics, relativity, and quantum theory. They challenge our understanding of the fundamental nature of space and time.

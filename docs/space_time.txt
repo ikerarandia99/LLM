@@ -1,0 +1,23 @@
+=== Introduction ===
+The theory of space-time arises from the need to unify the notions of space and time into a single mathematical entity. 
+Albert Einstein, with his theory of relativity, showed that space and time are not absolute, but depend on the observer.
+
+=== Classical Space and Time ===
+In Newtonian physics, space was considered a rigid and unchanging stage, and time a universal quantity that flowed identically for all observers.
+
+=== Special Relativity ===
+In 1905, Einstein formulated special relativity. 
+He proposed that the laws of physics are the same for all inertial observers and that the speed of light is constant, regardless of the observer's motion.
+This implied that time can dilate and lengths can contract depending on velocity.
+
+=== General Relativity ===
+In 1915, Einstein presented general relativity, which extended the theory to include gravity. 
+Here, gravity is not a classical force, but the curvature of space-time caused by mass and energy.
+
+=== Consequences and Examples ===
+- Light bends when passing near massive bodies, such as the Sun.
+- Time runs more slowly in strong gravitational fields, an effect confirmed with atomic clocks.
+- The existence of black holes, regions where the curvature of space-time is extreme.
+
+=== Conclusion ===
+The theory of space-time radically changed our view of the universe, showing that space and time form a dynamic fabric that can expand, curve, and deform depending on the matter and energy it contains.

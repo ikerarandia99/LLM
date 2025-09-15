@@ -1,0 +1,20 @@
+=== Introduction ===
+General relativity, published by Einstein in 1915, is a theory of gravitation that describes gravity not as a force but as the curvature of space-time caused by mass and energy.
+
+=== Key Principles ===
+- Equivalence Principle: the effects of gravity and acceleration are indistinguishable.
+- Curved Space-Time: mass and energy warp space-time, guiding the motion of objects.
+- Geodesics: objects follow the straightest possible paths in curved space-time.
+
+=== Predictions ===
+- Gravitational Time Dilation: time flows more slowly near strong gravitational fields.
+- Gravitational Lensing: massive bodies bend light, acting as cosmic lenses.
+- Gravitational Waves: ripples in space-time caused by accelerating massive objects, confirmed by LIGO in 2015.
+
+=== Applications ===
+- GPS technology requires corrections based on general relativity.
+- Astrophysics uses it to explain the dynamics of galaxies and black holes.
+- Cosmology relies on it to describe the expansion of the universe.
+
+=== Conclusion ===
+General relativity has passed every experimental test so far, yet it is incomplete because it does not integrate quantum mechanics. It remains one of the cornerstones of modern physics.
