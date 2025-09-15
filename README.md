@@ -28,7 +28,7 @@ LLM/
 1. **Clona el repositorio** y entra a la carpeta:
 
    ```bash
-   git clone <repo_url>
+   git clone https://github.com/ikerarandia99/LLM.git
    cd LLM
    ```
 
@@ -39,17 +39,7 @@ LLM/
    conda activate LLM
    ```
 
-3. **Instala dependencias adicionales** (si usas RAG):
-
-   ```bash
-   pip install langchain faiss-cpu sentence-transformers
-   ```
-
 ## Entrenamiento
-
-### Fine-tuning SFT (Supervised)
-
-Utiliza `src/train.py` para entrenar el modelo base (no incluido explícitamente aquí, pero puedes adaptar el script).
 
 ### Entrenamiento por Refuerzo (RL, PPO)
 
@@ -103,5 +93,3 @@ Edita `src/config.py` para ajustar rutas, modelo base y parámetros de entrenami
 - El reward para RL está diseñado para premiar frases naturales y penalizar repeticiones o finales incorrectos.
 
 ---
-
-¿Quieres agregar instrucciones para crear el índice FAISS, ejemplos de prompts, o detalles sobre datasets?
