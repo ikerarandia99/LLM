@@ -20,7 +20,7 @@ from rag import rag_query
 st.markdown("### Prompt for simple sentence comparison (distilgpt2 vs RL-trained)")
 prompt_simple = st.text_area("Enter a prompt for simple sentences:", height=100, key="simple_prompt")
 
-if st.button("Generate Simple"):
+if st.button("Generate (RL)"):
     if not prompt_simple.strip():
         st.warning("Please enter a prompt for simple sentences.")
     else:
@@ -47,7 +47,7 @@ st.markdown("---")
 st.markdown("### Prompt for thematic question comparison (gpt2 vs RAG)")
 prompt_thematic = st.text_area("Enter a prompt for thematic questions:", height=100, key="thematic_prompt")
 
-if st.button("Generate Thematic"):
+if st.button("Generate (RAG)"):
     if not prompt_thematic.strip():
         st.warning("Please enter a prompt for thematic questions.")
     else:
