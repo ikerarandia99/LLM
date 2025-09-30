@@ -1,17 +1,19 @@
-from transformers import pipeline, AutoTokenizer
+# rag.py
+import os
+import re
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 from langchain.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
-import re
 from config import *
 
 # -------------------------------
 # Cargar vectorstore
 # -------------------------------
 def load_vectorstore():
-    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
     vectorstore = FAISS.load_local(
         os.path.join(BASE_DIR, "faiss_index"),
         embedding_model,
@@ -20,17 +22,17 @@ def load_vectorstore():
     return vectorstore
 
 # -------------------------------
-# Configurar LLM (usa el modelo entrenado RL)
+# Configurar LLM (usa Flan-T5-small en CPU)
 # -------------------------------
-def setup_llm():
-    model_name = "gpt2"  # o tu RL-trained model path
+def setup_llm(model_name="google/flan-t5-small"):  # 🔑 más ligero para CPU
     tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     llm_pipeline = pipeline(
-        "text-generation",
-        model=model_name,
+        "text2text-generation",
+        model=model,
         tokenizer=tokenizer,
-        device=-1,          # CPU (-1), o GPU si quieres
+        device=-1,  # 🔑 CPU
         max_new_tokens=200,
     )
     llm = HuggingFacePipeline(pipeline=llm_pipeline)
@@ -42,7 +44,10 @@ def setup_llm():
 def create_qa_chain(vectorstore, llm, k=2):
     retriever = vectorstore.as_retriever(search_kwargs={"k": k})
 
-    prompt_template = """Answer the following question based on the provided context:
+    prompt_template = """Use the following context to answer the question.
+If the answer is not in the context, say you don't know.
+
+Context:
 {context}
 
 Question: {query}
@@ -59,39 +64,32 @@ Answer:"""
     return retrieval_qa
 
 # -------------------------------
-# Truncado seguro
-# -------------------------------
-def truncate_to_max_tokens(text, tokenizer, max_tokens=800):
-    tokens = tokenizer.encode(text, truncation=True, max_length=max_tokens)
-    return tokenizer.decode(tokens)
-
-# -------------------------------
 # Limpieza de output
 # -------------------------------
 def clean_generated_text(text: str) -> str:
-    # quitar saltos de línea múltiples
-    text = re.sub(r'\n+', ' ', text)
-    # quitar espacios dobles
-    text = re.sub(r' +', ' ', text)
-    # eliminar repeticiones simples de “Answer:”
-    text = re.sub(r'(Answer:\s*)+', 'Answer: ', text)
+    text = re.sub(r'\n+', ' ', text)   # quitar saltos de línea múltiples
+    text = re.sub(r' +', ' ', text)    # quitar espacios dobles
     return text.strip()
 
 # -------------------------------
-# Consulta limpia
+# Consulta limpia (usando contexto)
 # -------------------------------
-def ask_question_clean(qa_chain, tokenizer, llm_pipeline, question, top_k=3, max_tokens=800):
-    # Recuperar documentos (solo para internamente, no se muestra)
+def ask_question_clean(qa_chain, tokenizer, llm_pipeline, question, top_k=3):
+    # Recuperar documentos relevantes
     retrieved_docs = qa_chain.retriever.get_relevant_documents(question)[:top_k]
+    context = "\n".join([doc.page_content for doc in retrieved_docs])
 
-    # Prompt instruccional para respuestas concisas y coherentes
-    prompt = f"""
-Answer the following question concisely and clearly. Avoid including the retrieved context.
-If relevant, continue answering related sub-questions. Provide coherent sentences.
+    # Construir prompt con contexto
+    prompt = f"""Use the following context to answer the question.
+If the answer is not in the context, say you don't know.
+
+Context:
+{context}
+
 Question: {question}
 Answer:"""
 
-    result = llm_pipeline(prompt, max_new_tokens=200, do_sample=True)
+    result = llm_pipeline(prompt, max_new_tokens=200, do_sample=False)
 
     if isinstance(result, list) and "generated_text" in result[0]:
         answer = result[0]["generated_text"]
@@ -116,7 +114,7 @@ def rag_query(query: str) -> str:
     qa_chain = create_qa_chain(vectorstore, llm)
 
     answer, sources = ask_question_clean(qa_chain, tokenizer, hf_pipeline, query)
-    return answer
+    return query, answer
 
 # -------------------------------
 # Ejemplo standalone

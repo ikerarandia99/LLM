@@ -29,7 +29,7 @@ def create_faiss_index(documents):
     """
     Create FAISS index using HuggingFace embeddings.
     """
-    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
     vectorstore = FAISS.from_documents(documents, embedding_model)
     return vectorstore
 
